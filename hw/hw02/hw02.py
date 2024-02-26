@@ -194,16 +194,6 @@ def count_coins(total):
 
     return count_helper(total,1)
 
-
-
-
-
-
-
-
-
-
-
 def any(a, b, pred):
     """Returns True if any numbers from a to b inclusive satisfy
     pred.
@@ -224,8 +214,6 @@ def any(a, b, pred):
     if pred(a):
         return True
     return any(a+1,b,pred)
-
-
 
 from operator import sub, mul
 

@@ -68,8 +68,14 @@ def paths(m, n):
     1
     """
     "*** YOUR CODE HERE ***"
-
-
+    def path_helper(x,y):
+        if x >= m or y >= n:
+            return 0
+        if x == m-1 and y == n-1:
+            return 1
+        else:
+            return path_helper(x+1,y) + path_helper(x,y+1)
+    return path_helper(0,0)
 
 
 def max_subseq(n, t):
@@ -117,7 +123,17 @@ def max_subseq(n, t):
     5
     """
     "*** YOUR CODE HERE ***"
+    if t == 0:
+        return 0
+    if n < 10:
+        return n
 
+    last_digit, remaining_nums = n % 10, n // 10
+
+    using_last = max_subseq(remaining_nums,t-1)*10 + last_digit
+    without_last = max_subseq(remaining_nums,t)
+
+    return max(using_last,without_last)
 
 def add_chars(w1, w2):
     """
@@ -146,3 +162,10 @@ def add_chars(w1, w2):
     True
     """
     "*** YOUR CODE HERE ***"
+
+    if len(w1) == 0:
+        return w2
+    if w1[0] == w2[0]:
+        return add_chars(w1[1:],w2[1:])
+    else:
+        return w2[0] + add_chars(w1,w2[1:])

@@ -225,6 +225,15 @@ def fastest_words(game):
     word_indices = range(len(all_words(game)))    # contains an *index* for each word
 
 
+    result = [[] for x in  player_indices]
+
+    for word in word_indices:
+        fastest_player_for_word = lambda player : time(game,player,word)
+        fastest = min(player_indices, key=fastest_player_for_word)
+        result[fastest].append(word_at(game,word))
+
+    return result
+
 
 
 def game(words, times):

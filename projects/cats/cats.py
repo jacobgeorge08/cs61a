@@ -144,25 +144,21 @@ def shifty_shifts(start, goal, limit):
 
 def pawssible_patches(start, goal, limit):
     """A diff function that computes the edit distance from START to GOAL."""
-    assert False, 'Remove this line'
+    if limit < 0:
+        return 46 #Longest Word in English is 45 characters
 
-    if ______________: # Fill in the condition
-        # BEGIN
-        "*** YOUR CODE HERE ***"
-        # END
+    if len(start) == 0 or len(goal) == 0:
+        return len(start) + len(goal)
 
-    elif ___________: # Feel free to remove or add additional cases
-        # BEGIN
-        "*** YOUR CODE HERE ***"
-        # END
+    if start[0] == goal[0]:
+        return pawssible_patches(start[1:],goal[1:],limit)
 
     else:
-        add_diff = ... # Fill in these lines
-        remove_diff = ...
-        substitute_diff = ...
-        # BEGIN
-        "*** YOUR CODE HERE ***"
-        # END
+        add_diff = 1 + pawssible_patches(start,goal[1:],limit-1)
+        remove_diff = 1 + pawssible_patches(start[1:],goal,limit-1)
+        substitute_diff = 1 + pawssible_patches(start[1:],goal[1:],limit-1)
+
+        return  min(add_diff,remove_diff,substitute_diff)
 
 
 def final_diff(start, goal, limit):
@@ -177,10 +173,20 @@ def final_diff(start, goal, limit):
 
 def report_progress(typed, prompt, user_id, send):
     """Send a report of your id and progress so far to the multiplayer server."""
-    # BEGIN PROBLEM 8
-    "*** YOUR CODE HERE ***"
-    # END PROBLEM 8
 
+    count = 0
+
+    for i in range(len(typed)):
+        if typed[i] != prompt[i]:
+            break;
+        else:
+            count += 1
+
+
+    progress = count/len(prompt)
+    send({"id": user_id, "progress": progress})
+
+    return progress
 
 def fastest_words_report(times_per_player, words):
     """Return a text description of the fastest words typed by each player."""
@@ -203,10 +209,9 @@ def time_per_word(times_per_player, words):
                           the player finished typing each word.
         words: a list of words, in the order they are typed.
     """
-    # BEGIN PROBLEM 9
-    "*** YOUR CODE HERE ***"
-    # END PROBLEM 9
+    times = [[times_for_word[i+1] - times_for_word[i] for i in range(len(times_for_word) - 1)]for times_for_word in times_per_player]
 
+    return game(words,times)
 
 def fastest_words(game):
     """Return a list of lists of which words each player typed fastest.
@@ -218,9 +223,8 @@ def fastest_words(game):
     """
     player_indices = range(len(all_times(game)))  # contains an *index* for each player
     word_indices = range(len(all_words(game)))    # contains an *index* for each word
-    # BEGIN PROBLEM 10
-    "*** YOUR CODE HERE ***"
-    # END PROBLEM 10
+
+
 
 
 def game(words, times):

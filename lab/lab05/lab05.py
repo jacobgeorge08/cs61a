@@ -282,7 +282,8 @@ def riffle(deck):
     [0, 10, 1, 11, 2, 12, 3, 13, 4, 14, 5, 15, 6, 16, 7, 17, 8, 18, 9, 19]
     """
     "*** YOUR CODE HERE ***"
-
+    mid = len(deck) // 2
+    return [deck[k // 2 + k % 2 * mid] for k in range(2 * mid)]
 
 def add_trees(t1, t2):
     """
@@ -311,7 +312,7 @@ def add_trees(t1, t2):
     4
       6
       4
-    >>> print_tree(add_trees(tree(2, [tree(3, [tree(4), tree(5)])]), \
+    >>> print_tree(add_trees(tree(2, [tree(3, [tree(4), tree(5)])]),
     tree(2, [tree(3, [tree(4)]), tree(5)])))
     4
       6

@@ -25,10 +25,10 @@ def make_bank(balance):
             return balance
         elif message == 'withdraw':
             if amount > balance:
-                return 'Insufficient funds'
+                return 'Insufficient Funds'
             else:
                 balance -= amount
-                return balance 
+                return balance
         else:
             return 'Invalid message'
     return bank
@@ -62,7 +62,25 @@ def make_withdraw(balance, password):
     >>> type(w(10, 'l33t')) == str
     True
     """
-    "*** YOUR CODE HERE ***"
+
+    attempts = []
+
+    def withdraw(amount, secret):
+        nonlocal balance
+        nonlocal attempts
+        if len(attempts) >= 3:
+            return 'Frozen account. Attempts: ' + str(attempts)
+            
+        if password != secret:
+            attempts.append(secret)
+            return 'Incorrect password'
+
+        if amount > balance:
+            return 'Insufficient funds'
+        else:
+            balance -= amount
+            return balance
+    return withdraw
 
 
 def repeated(t, k):
@@ -203,4 +221,3 @@ def naturals():
     while True:
         yield i
         i += 1
-

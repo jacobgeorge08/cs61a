@@ -139,10 +139,13 @@ def permutations(seq):
     [['a', 'b'], ['b', 'a']]
     """
     "*** YOUR CODE HERE ***"
-
-
-
-
+    if len(seq) == 1:
+        yield [seq[0]]  # Convert to a list
+    else:
+        for i in range(len(seq)):
+            remaining = seq[:i] + seq[i+1:]
+            for perm in permutations(remaining):
+                yield [seq[i]] + list(perm)  # Convert to a list
 
 
 def make_joint(withdraw, old_pass, new_pass):

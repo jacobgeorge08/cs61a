@@ -70,7 +70,7 @@ def make_withdraw(balance, password):
         nonlocal attempts
         if len(attempts) >= 3:
             return 'Frozen account. Attempts: ' + str(attempts)
-            
+
         if password != secret:
             attempts.append(secret)
             return 'Incorrect password'
@@ -105,7 +105,16 @@ def repeated(t, k):
     """
     assert k > 1
     "*** YOUR CODE HERE ***"
-
+    prev_value = 0
+    count = 1
+    for current_value in t:
+        if current_value == prev_value:
+            count +=1
+        else:
+            prev_value = current_value
+            count = 1
+        if count >= k:
+            return current_value
 
 def permutations(seq):
     """Generates all permutations of the given sequence. Each permutation is a
@@ -130,6 +139,10 @@ def permutations(seq):
     [['a', 'b'], ['b', 'a']]
     """
     "*** YOUR CODE HERE ***"
+
+
+
+
 
 
 def make_joint(withdraw, old_pass, new_pass):

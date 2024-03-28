@@ -1,3 +1,4 @@
-def sequ(s):
-    for x in s:
-        yield x
+names = ['Alice', 'Bob', 'Charlie']
+ages = [25, 30, 35]
+
+zipped = zip(names, ages)

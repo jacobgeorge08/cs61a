@@ -261,28 +261,17 @@ class FireAnt(Ant):
         bees_splash = []
 
         if amount >= self.armor:
-            bees_splash = []
             splash_dmg = amount + self.damage
-            for bee in bees[:]:
-                Insect.reduce_armor(bee,splash_dmg)
-                if bee.armor > 0:
-                    bees_splash.append(bee)
-
-            bees = bees_splash
-
-            Ant.reduce_armor(self,amount)
-
         else:
-            bees_splash = []
-            for bee in bees[:]:
-                Insect.reduce_armor(bee,amount)
-                if bee.armor > 0:
-                    bees_splash.append(bee)
+            splash_dmg = amount
 
-            bees = bees_splash
+        for bee in bees[:]:
+            Insect.reduce_armor(bee,splash_dmg)
+            if bee.armor > 0:
+                bees_splash.append(bee)
 
-            Ant.reduce_armor(self,amount)
-
+        bees = bees_splash
+        Ant.reduce_armor(self,amount)
 
         # END Problem 5
 
@@ -294,22 +283,34 @@ class HungryAnt(Ant):
     food_cost = 4
     # OVERRIDE CLASS ATTRIBUTES HERE
     # BEGIN Problem 6
-    implemented = False   # Change to True to view in the GUI
+    time_to_digest = 3
+    armor = 1
+    implemented = True   # Change to True to view in the GUI
     # END Problem 6
 
-    def __init__(self, armor=1):
+    def __init__(self, armor=1,digesting=0):
         # BEGIN Problem 6
         "*** YOUR CODE HERE ***"
+        Ant.__init__(self,armor)
+        self.digesting = digesting
         # END Problem 6
 
     def eat_bee(self, bee):
         # BEGIN Problem 6
         "*** YOUR CODE HERE ***"
+        if bee:
+            Insect.reduce_armor(bee,bee.armor)
+            self.digesting = self.time_to_digest
         # END Problem 6
 
     def action(self, gamestate):
+        bees = self.place.bees
         # BEGIN Problem 6
         "*** YOUR CODE HERE ***"
+        if self.digesting:
+            self.digesting -= 1
+        else:
+            self.eat_bee(rANTdom_else_none(bees))
         # END Problem 6
 
 

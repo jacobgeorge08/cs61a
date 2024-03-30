@@ -241,7 +241,7 @@ class FireAnt(Ant):
     food_cost = 5
     # OVERRIDE CLASS ATTRIBUTES HERE
     # BEGIN Problem 5
-    implemented = False   # Change to True to view in the GUI
+    implemented = True   # Change to True to view in the GUI
     # END Problem 5
 
     def __init__(self, armor=3):
@@ -252,11 +252,38 @@ class FireAnt(Ant):
         """Reduce armor by AMOUNT, and remove the FireAnt from its place if it
         has no armor remaining.
 
-        Make sure to damage each bee in the current place, and apply the bonus
+        # Make sure to damage each bee in the current place, and apply the bonus
         if the fire ant dies.
         """
         # BEGIN Problem 5
         "*** YOUR CODE HERE ***"
+        bees = self.place.bees
+        bees_splash = []
+
+        if amount >= self.armor:
+            bees_splash = []
+            splash_dmg = amount + self.damage
+            for bee in bees[:]:
+                Insect.reduce_armor(bee,splash_dmg)
+                if bee.armor > 0:
+                    bees_splash.append(bee)
+
+            bees = bees_splash
+
+            Ant.reduce_armor(self,amount)
+
+        else:
+            bees_splash = []
+            for bee in bees[:]:
+                Insect.reduce_armor(bee,amount)
+                if bee.armor > 0:
+                    bees_splash.append(bee)
+
+            bees = bees_splash
+
+            Ant.reduce_armor(self,amount)
+
+
         # END Problem 5
 
 class HungryAnt(Ant):

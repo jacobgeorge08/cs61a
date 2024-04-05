@@ -1,6 +1,6 @@
-class Pet():
+class Pet:
     def __init__(self, name, owner):
-        self.is_alive = True # It's alive!!!
+        self.is_alive = True  # It's alive!!!
         self.name = name
         self.owner = owner
 
@@ -13,16 +13,15 @@ class Pet():
 
 class Cat(Pet):
     def __init__(self, name, owner, lives=9):
-        Pet.__init__(self,name,owner)
+        Pet.__init__(self, name, owner)
         self.lives = lives
 
     def talk(self):
-        """ Print out a cat's greeting.
+        """Print out a cat's greeting.
         >>> Cat('Thomas', 'Tammy').talk()
         Thomas says meow!
         """
-        print(super().talk()," says meow")
-
+        print(super().talk(), " says meow")
 
     def lose_life(self):
         """Decrements a cat's life by 1. When lives reaches zero, 'is_alive'
@@ -35,7 +34,6 @@ class Cat(Pet):
             print("No more lives to lose")
 
 
-
 # 2 Tutorial: More cats! Fill in this implemention of a class called NoisyCat, which is
 # just like a normal Cat. However, NoisyCat talks a lot – twice as much as a regular
 # Cat! Make sure to also fill in the repr method for NoisyCat, so we know how
@@ -45,7 +43,8 @@ class Cat(Pet):
 # >>> 'filling in {} spaces {} and {}'.format('blank', 'here', 'here')
 # 'filling in blank spaces here and here'
 
-class NoisyCat(Cat): # Fill me in!
+
+class NoisyCat(Cat):  # Fill me in!
     """A Cat that repeats things twice."""
 
     def talk(self):
@@ -54,7 +53,7 @@ class NoisyCat(Cat): # Fill me in!
         Magic says meow!
         Magic says meow!
         """
-        print('{} \n {}'.format(super().talk(),super().talk()))
+        print("{} \n {}".format(super().talk(), super().talk()))
 
     def __repr__(self):
         """The interpreter-readable representation of a NoisyCat

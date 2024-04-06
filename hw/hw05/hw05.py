@@ -35,7 +35,41 @@ class VendingMachine:
     >>> w.vend()
     'Here is your soda.'
     """
+
     "*** YOUR CODE HERE ***"
+
+    def __init__(self, item, price):
+        self.item = item
+        self.price = price
+        self.stock = 0
+        self.funds = 0
+
+    def restock(self, qty):
+        self.stock += qty
+        return "Current {0} stock: {1}".format(self.item, self.stock)
+
+    def add_funds(self, amt):
+        if self.stock == 0:
+            return "Inventory empty. Restocking required. Here is your ${0}.".format(
+                amt
+            )
+        self.funds += amt
+        return "Current balance: ${0}".format(self.funds)
+
+    def vend(self):
+        if self.stock == 0:
+            return "Inventory empty. Restocking required."
+        elif self.funds >= self.price:
+            self.stock -= 1
+            change = self.funds - self.price
+            self.funds -= self.funds
+            return (
+                "Here is your {0} and ${1} change.".format(self.item, change)
+                if change
+                else "Here is your {0}.".format(self.item)
+            )
+        else:
+            return "You must add ${0} more funds.".format(self.price - self.funds)
 
 
 class Mint:
@@ -67,6 +101,7 @@ class Mint:
     >>> dime.worth()     # 20 cents + (155 - 50 years)
     125
     """
+
     current_year = 2020
 
     def __init__(self):
@@ -78,6 +113,7 @@ class Mint:
     def update(self):
         "*** YOUR CODE HERE ***"
 
+
 class Coin:
     def __init__(self, year):
         self.year = year
@@ -85,8 +121,10 @@ class Coin:
     def worth(self):
         "*** YOUR CODE HERE ***"
 
+
 class Nickel(Coin):
     cents = 5
+
 
 class Dime(Coin):
     cents = 10
@@ -214,6 +252,7 @@ class Link:
     >>> print(s)                             # Prints str(s)
     <5 7 <8 9>>
     """
+
     empty = ()
 
     def __init__(self, first, rest=empty):
@@ -223,17 +262,17 @@ class Link:
 
     def __repr__(self):
         if self.rest is not Link.empty:
-            rest_repr = ', ' + repr(self.rest)
+            rest_repr = ", " + repr(self.rest)
         else:
-            rest_repr = ''
-        return 'Link(' + repr(self.first) + rest_repr + ')'
+            rest_repr = ""
+        return "Link(" + repr(self.first) + rest_repr + ")"
 
     def __str__(self):
-        string = '<'
+        string = "<"
         while self.rest is not Link.empty:
-            string += str(self.first) + ' '
+            string += str(self.first) + " "
             self = self.rest
-        return string + str(self.first) + '>'
+        return string + str(self.first) + ">"
 
 
 class Tree:
@@ -246,6 +285,7 @@ class Tree:
     >>> t.branches[1].is_leaf()
     True
     """
+
     def __init__(self, label, branches=[]):
         for b in branches:
             assert isinstance(b, Tree)
@@ -297,16 +337,16 @@ class Tree:
 
     def __repr__(self):
         if self.branches:
-            branch_str = ', ' + repr(self.branches)
+            branch_str = ", " + repr(self.branches)
         else:
-            branch_str = ''
-        return 'Tree({0}{1})'.format(self.label, branch_str)
+            branch_str = ""
+        return "Tree({0}{1})".format(self.label, branch_str)
 
     def __str__(self):
         def print_tree(t, indent=0):
-            tree_str = '  ' * indent + str(t.label) + "\n"
+            tree_str = "  " * indent + str(t.label) + "\n"
             for b in t.branches:
                 tree_str += print_tree(b, indent + 1)
             return tree_str
-        return print_tree(self).rstrip()
 
+        return print_tree(self).rstrip()

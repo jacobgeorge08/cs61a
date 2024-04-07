@@ -109,9 +109,11 @@ class Mint:
 
     def create(self, kind):
         "*** YOUR CODE HERE ***"
+        return kind(self.year)
 
     def update(self):
         "*** YOUR CODE HERE ***"
+        self.year = Mint.current_year
 
 
 class Coin:
@@ -120,6 +122,7 @@ class Coin:
 
     def worth(self):
         "*** YOUR CODE HERE ***"
+        return self.cents + max(Mint.current_year - self.year - 50, 0)
 
 
 class Nickel(Coin):
@@ -146,6 +149,16 @@ def store_digits(n):
     >>> print("Do not use str or reversed!") if any([r in cleaned for r in ["str", "reversed"]]) else None
     """
     "*** YOUR CODE HERE ***"
+
+    def digit_helper(n, current_link):
+        if n == 0:
+            return current_link
+        else:
+            digit = n % 10
+            n = n // 10
+            return digit_helper(n, Link(digit, current_link))
+
+    return digit_helper(n, Link.empty)
 
 
 def is_bst(t):
@@ -174,7 +187,7 @@ def is_bst(t):
     False
     """
     "*** YOUR CODE HERE ***"
-
+     
 
 def preorder(t):
     """Return a list of the entries in this tree in the order that they
